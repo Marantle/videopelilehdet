@@ -37,7 +37,7 @@ export default function Layout({
       <Helmet>
         <meta charSet="utf-8" />
         <title>{'Videopelilehdet - ' + title}</title>
-        <link rel="canonical" href={`https://videopelilehdet.fi/${path}`} />
+        <link rel="canonical" href={`https://videopelilehdet.fi${path}`} />
 
         {/* <!-- Primary Meta Tags --> */}
         <meta name="title" content={title} />

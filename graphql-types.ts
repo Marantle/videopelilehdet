@@ -254,8 +254,6 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -843,6 +841,7 @@ export type SitePlugin = Node & {
 export type SitePluginPluginOptions = {
   prettier?: Maybe<SitePluginPluginOptionsPrettier>;
   eslint?: Maybe<SitePluginPluginOptionsEslint>;
+  policy?: Maybe<Array<Maybe<SitePluginPluginOptionsPolicy>>>;
   displayName?: Maybe<Scalars['Boolean']>;
   minify?: Maybe<Scalars['Boolean']>;
   namespace?: Maybe<Scalars['String']>;
@@ -857,10 +856,6 @@ export type SitePluginPluginOptions = {
   failOnError?: Maybe<Scalars['Boolean']>;
   trackingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   pluginConfig?: Maybe<SitePluginPluginOptionsPluginConfig>;
-  output?: Maybe<Scalars['String']>;
-  createLinkInHead?: Maybe<Scalars['Boolean']>;
-  entryLimit?: Maybe<Scalars['Int']>;
-  query?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   icon?: Maybe<Scalars['String']>;
@@ -881,6 +876,10 @@ export type SitePluginPluginOptions = {
   allExtensions?: Maybe<Scalars['Boolean']>;
   isTSX?: Maybe<Scalars['Boolean']>;
   jsxPragma?: Maybe<Scalars['String']>;
+  query?: Maybe<Scalars['String']>;
+  output?: Maybe<Scalars['String']>;
+  createLinkInHead?: Maybe<Scalars['Boolean']>;
+  entryLimit?: Maybe<Scalars['Int']>;
 };
 
 export type SitePluginPluginOptionsPrettier = {
@@ -897,6 +896,10 @@ export type SitePluginPluginOptionsEslint = {
 export type SitePluginPluginOptionsEslintCustomOptions = {
   fix?: Maybe<Scalars['Boolean']>;
   cache?: Maybe<Scalars['Boolean']>;
+};
+
+export type SitePluginPluginOptionsPolicy = {
+  userAgent?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsCodegenConfig = {
@@ -1062,8 +1065,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -1993,8 +1994,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___siteUrl'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2096,8 +2095,6 @@ export type SiteGroupConnection = {
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2575,6 +2572,7 @@ export type SitePluginFilterInput = {
 export type SitePluginPluginOptionsFilterInput = {
   prettier?: Maybe<SitePluginPluginOptionsPrettierFilterInput>;
   eslint?: Maybe<SitePluginPluginOptionsEslintFilterInput>;
+  policy?: Maybe<SitePluginPluginOptionsPolicyFilterListInput>;
   displayName?: Maybe<BooleanQueryOperatorInput>;
   minify?: Maybe<BooleanQueryOperatorInput>;
   namespace?: Maybe<StringQueryOperatorInput>;
@@ -2589,10 +2587,6 @@ export type SitePluginPluginOptionsFilterInput = {
   failOnError?: Maybe<BooleanQueryOperatorInput>;
   trackingIds?: Maybe<StringQueryOperatorInput>;
   pluginConfig?: Maybe<SitePluginPluginOptionsPluginConfigFilterInput>;
-  output?: Maybe<StringQueryOperatorInput>;
-  createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
-  entryLimit?: Maybe<IntQueryOperatorInput>;
-  query?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   icon?: Maybe<StringQueryOperatorInput>;
@@ -2613,6 +2607,10 @@ export type SitePluginPluginOptionsFilterInput = {
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   isTSX?: Maybe<BooleanQueryOperatorInput>;
   jsxPragma?: Maybe<StringQueryOperatorInput>;
+  query?: Maybe<StringQueryOperatorInput>;
+  output?: Maybe<StringQueryOperatorInput>;
+  createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
+  entryLimit?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPrettierFilterInput = {
@@ -2629,6 +2627,14 @@ export type SitePluginPluginOptionsEslintFilterInput = {
 export type SitePluginPluginOptionsEslintCustomOptionsFilterInput = {
   fix?: Maybe<BooleanQueryOperatorInput>;
   cache?: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPolicyFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsPolicyFilterInput>;
+};
+
+export type SitePluginPluginOptionsPolicyFilterInput = {
+  userAgent?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsCodegenConfigFilterInput = {
@@ -2883,6 +2889,8 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___eslint___patterns'
   | 'pluginCreator___pluginOptions___eslint___emitWarning'
   | 'pluginCreator___pluginOptions___eslint___version'
+  | 'pluginCreator___pluginOptions___policy'
+  | 'pluginCreator___pluginOptions___policy___userAgent'
   | 'pluginCreator___pluginOptions___displayName'
   | 'pluginCreator___pluginOptions___minify'
   | 'pluginCreator___pluginOptions___namespace'
@@ -2896,10 +2904,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___failOnError'
   | 'pluginCreator___pluginOptions___trackingIds'
   | 'pluginCreator___pluginOptions___pluginConfig___head'
-  | 'pluginCreator___pluginOptions___output'
-  | 'pluginCreator___pluginOptions___createLinkInHead'
-  | 'pluginCreator___pluginOptions___entryLimit'
-  | 'pluginCreator___pluginOptions___query'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___icon'
@@ -2920,6 +2924,10 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___allExtensions'
   | 'pluginCreator___pluginOptions___isTSX'
   | 'pluginCreator___pluginOptions___jsxPragma'
+  | 'pluginCreator___pluginOptions___query'
+  | 'pluginCreator___pluginOptions___output'
+  | 'pluginCreator___pluginOptions___createLinkInHead'
+  | 'pluginCreator___pluginOptions___entryLimit'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
   | 'pluginCreator___ssrAPIs'
@@ -3448,6 +3456,8 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___eslint___customOptions___fix'
   | 'pluginOptions___eslint___customOptions___cache'
   | 'pluginOptions___eslint___version'
+  | 'pluginOptions___policy'
+  | 'pluginOptions___policy___userAgent'
   | 'pluginOptions___displayName'
   | 'pluginOptions___minify'
   | 'pluginOptions___namespace'
@@ -3462,10 +3472,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___failOnError'
   | 'pluginOptions___trackingIds'
   | 'pluginOptions___pluginConfig___head'
-  | 'pluginOptions___output'
-  | 'pluginOptions___createLinkInHead'
-  | 'pluginOptions___entryLimit'
-  | 'pluginOptions___query'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
   | 'pluginOptions___icon'
@@ -3486,6 +3492,10 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___allExtensions'
   | 'pluginOptions___isTSX'
   | 'pluginOptions___jsxPragma'
+  | 'pluginOptions___query'
+  | 'pluginOptions___output'
+  | 'pluginOptions___createLinkInHead'
+  | 'pluginOptions___entryLimit'
   | 'nodeAPIs'
   | 'browserAPIs'
   | 'ssrAPIs'

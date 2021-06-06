@@ -31,6 +31,12 @@ const config: GatsbyConfig = {
         },
       },
     },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [{ userAgent: '*' }],
+      },
+    },
     'gatsby-plugin-styled-components',
     {
       resolve: 'gatsby-plugin-graphql-codegen',
@@ -73,7 +79,56 @@ const config: GatsbyConfig = {
       },
     },
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allFile(filter: {sourceInstanceName: {eq: "magazines"}}) {
+            nodes {
+              modifiedTime
+              relativeDirectory
+              name
+            }
+          }
+        }
+        
+      `,
+        resolveSiteUrl: () => 'https://videopelilehdet.fi',
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allFile: { nodes: allFiles },
+        }) => {
+          const allFileMap = allFiles.reduce((acc, file) => {
+            const { relativeDirectory, name } = file
+            const path = `/${relativeDirectory}/${name}/`
+            acc[path] = {
+              path: path,
+              modifiedTime: file.modifiedTime,
+            }
+            return acc
+          }, {})
+
+          const pages = allPages.map((page) => {
+            return { ...page, ...allFileMap[page.path] }
+          })
+          console.log(JSON.stringify({ allFileMap }, null, 2))
+          console.log(JSON.stringify({ t: pages }, null, 2))
+          return pages
+        },
+        serialize: ({ path, modifiedTime }) => {
+          return {
+            url: path,
+            lastmod: modifiedTime,
+          }
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
