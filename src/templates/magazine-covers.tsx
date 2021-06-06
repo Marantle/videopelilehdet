@@ -31,11 +31,21 @@ export interface Props {
   }[]
 }
 
-export default function MagazineIssue(data: PageProps<{}, Props>) {
-  const { coverPages, magazineName, yearNumber } = data.pageContext
+export default function MagazineIssue(props: PageProps<{}, Props>) {
+  const { coverPages, magazineName, yearNumber } = props.pageContext
+  const {
+    location: { pathname },
+  } = props
   const title = `${capitalize(magazineName)} ${yearNumber}`
   return (
-    <Layout title={title} path={data.path}>
+    <Layout
+      title={title}
+      path={props.path}
+      ogUrl={pathname}
+      ogImage={
+        coverPages[0].page.image.small.gatsbyImageData.images.fallback.src
+      }
+    >
       <>
         <Nav navs={buildNavObject(magazineName, yearNumber)}></Nav>
 

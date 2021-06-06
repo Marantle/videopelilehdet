@@ -36,11 +36,19 @@ export interface Props {
   issue: string
 }
 
-export default function MagazineIssue(data: PageProps<{}, Props>) {
-  const { images: images, magazine, year, issue } = data.pageContext
+export default function MagazineIssue(props: PageProps<{}, Props>) {
+  const { images: images, magazine, year, issue } = props.pageContext
+  const {
+    location: { pathname },
+  } = props
   const title = `${capitalize(magazine)} ${issue}/${year}`
   return (
-    <Layout title={title} path={data.path}>
+    <Layout
+      title={title}
+      path={props.path}
+      ogUrl={pathname}
+      ogImage={images[0].small.gatsbyImageData.images.fallback.src}
+    >
       <>
         <Nav navs={buildNavObject(magazine, year, issue)}></Nav>
 
