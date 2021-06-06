@@ -34,7 +34,11 @@ export default function Layout({
         justifyContent: 'center',
       }}
     >
-      <Helmet>
+      <Helmet
+        htmlAttributes={{
+          lang: 'fi',
+        }}
+      >
         <meta charSet="utf-8" />
         <title>{'Videopelilehdet - ' + title}</title>
         <link rel="canonical" href={`https://videopelilehdet.fi${path}`} />
