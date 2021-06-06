@@ -31,7 +31,14 @@ const StyledHeader = styled.div`
 const IndexPage = (props: InternalProps) => {
   const { coverPages } = props.pageContext
   return (
-    <Layout path="/" title="Videopelilehdet">
+    <Layout
+      path=""
+      title="Videopelilehdet"
+      ogUrl={props.location.pathname}
+      ogImage={
+        coverPages[0].page.image.large.gatsbyImageData.images.fallback.src
+      }
+    >
       <>
         <StyledHeader>
           <title>Home Page</title>
