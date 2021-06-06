@@ -56,9 +56,20 @@ const config: GatsbyConfig = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-image',
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: ' UA-198097627-1 ',
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          'G-1N2GCTE2PT', // Google Analytics / GA
+        ],
+        // gtagConfig: {
+        //   optimize_id: '',
+        //   anonymize_ip: true,
+        //   cookie_expires: 0,
+        // },
+        pluginConfig: {
+          head: false,
+        },
       },
     },
     'gatsby-plugin-react-helmet',
