@@ -68,6 +68,21 @@ const config: GatsbyConfig = {
         path: 'src/images/magazines/',
       },
     },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'src/images/icon.png',
+        name: 'Videopelilehdet',
+        short_name: 'Lehdet',
+        start_url: '/',
+        background_color: '#f7f0eb',
+        theme_color: '#a2466c',
+        display: 'standalone',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-offline',
+    },
   ],
 }
 
