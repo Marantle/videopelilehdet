@@ -7,6 +7,7 @@ import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { PageFile } from '../../.gatsby/gatsby-node'
+import styled from 'styled-components'
 
 export interface Props {
   image: PageFile
@@ -62,6 +63,12 @@ export default function MagazinePage({
   //   }
   // }, [])
 
+  const StyledGI = styled.div`
+    max-width: 100vw;
+    display: flex;
+    align-items: 'center';
+    justify-content: 'center';
+  `
   return (
     <Layout
       title={title}
@@ -73,14 +80,14 @@ export default function MagazinePage({
         <Nav
           navs={buildNavObject(magazineName, year, issueNumber, pageNumber)}
         ></Nav>
-        <div>
+        <StyledGI>
           <Link to={next}>
             <GatsbyImage
               image={getImage(image.large.gatsbyImageData)}
               alt={magazineName}
             />
           </Link>
-        </div>
+        </StyledGI>
       </>
     </Layout>
   )

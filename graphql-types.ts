@@ -848,27 +848,21 @@ export type SitePluginPluginOptions = {
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
+  codegen?: Maybe<Scalars['Boolean']>;
+  documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
+  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfig>;
   base64Width?: Maybe<Scalars['Int']>;
   stripMetadata?: Maybe<Scalars['Boolean']>;
   defaultQuality?: Maybe<Scalars['Int']>;
   failOnError?: Maybe<Scalars['Boolean']>;
-  trackingId?: Maybe<Scalars['String']>;
-  head?: Maybe<Scalars['Boolean']>;
-  anonymize?: Maybe<Scalars['Boolean']>;
-  respectDNT?: Maybe<Scalars['Boolean']>;
-  pageTransitionDelay?: Maybe<Scalars['Int']>;
+  trackingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  pluginConfig?: Maybe<SitePluginPluginOptionsPluginConfig>;
   output?: Maybe<Scalars['String']>;
   createLinkInHead?: Maybe<Scalars['Boolean']>;
   entryLimit?: Maybe<Scalars['Int']>;
   query?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
-  projectRoot?: Maybe<Scalars['String']>;
-  configDir?: Maybe<Scalars['String']>;
-  pathCheck?: Maybe<Scalars['Boolean']>;
-  allExtensions?: Maybe<Scalars['Boolean']>;
-  isTSX?: Maybe<Scalars['Boolean']>;
-  jsxPragma?: Maybe<Scalars['String']>;
   icon?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
@@ -881,9 +875,12 @@ export type SitePluginPluginOptions = {
   crossOrigin?: Maybe<Scalars['String']>;
   include_favicon?: Maybe<Scalars['Boolean']>;
   cacheDigest?: Maybe<Scalars['String']>;
-  codegen?: Maybe<Scalars['Boolean']>;
-  documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
-  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfig>;
+  projectRoot?: Maybe<Scalars['String']>;
+  configDir?: Maybe<Scalars['String']>;
+  pathCheck?: Maybe<Scalars['Boolean']>;
+  allExtensions?: Maybe<Scalars['Boolean']>;
+  isTSX?: Maybe<Scalars['Boolean']>;
+  jsxPragma?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsPrettier = {
@@ -908,6 +905,10 @@ export type SitePluginPluginOptionsCodegenConfig = {
 
 export type SitePluginPluginOptionsCodegenConfigHooks = {
   afterAllFileWrite?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsPluginConfig = {
+  head?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPackageJson = {
@@ -2579,27 +2580,21 @@ export type SitePluginPluginOptionsFilterInput = {
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
+  codegen?: Maybe<BooleanQueryOperatorInput>;
+  documentPaths?: Maybe<StringQueryOperatorInput>;
+  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfigFilterInput>;
   base64Width?: Maybe<IntQueryOperatorInput>;
   stripMetadata?: Maybe<BooleanQueryOperatorInput>;
   defaultQuality?: Maybe<IntQueryOperatorInput>;
   failOnError?: Maybe<BooleanQueryOperatorInput>;
-  trackingId?: Maybe<StringQueryOperatorInput>;
-  head?: Maybe<BooleanQueryOperatorInput>;
-  anonymize?: Maybe<BooleanQueryOperatorInput>;
-  respectDNT?: Maybe<BooleanQueryOperatorInput>;
-  pageTransitionDelay?: Maybe<IntQueryOperatorInput>;
+  trackingIds?: Maybe<StringQueryOperatorInput>;
+  pluginConfig?: Maybe<SitePluginPluginOptionsPluginConfigFilterInput>;
   output?: Maybe<StringQueryOperatorInput>;
   createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
   entryLimit?: Maybe<IntQueryOperatorInput>;
   query?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
-  projectRoot?: Maybe<StringQueryOperatorInput>;
-  configDir?: Maybe<StringQueryOperatorInput>;
-  pathCheck?: Maybe<BooleanQueryOperatorInput>;
-  allExtensions?: Maybe<BooleanQueryOperatorInput>;
-  isTSX?: Maybe<BooleanQueryOperatorInput>;
-  jsxPragma?: Maybe<StringQueryOperatorInput>;
   icon?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
@@ -2612,9 +2607,12 @@ export type SitePluginPluginOptionsFilterInput = {
   crossOrigin?: Maybe<StringQueryOperatorInput>;
   include_favicon?: Maybe<BooleanQueryOperatorInput>;
   cacheDigest?: Maybe<StringQueryOperatorInput>;
-  codegen?: Maybe<BooleanQueryOperatorInput>;
-  documentPaths?: Maybe<StringQueryOperatorInput>;
-  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfigFilterInput>;
+  projectRoot?: Maybe<StringQueryOperatorInput>;
+  configDir?: Maybe<StringQueryOperatorInput>;
+  pathCheck?: Maybe<BooleanQueryOperatorInput>;
+  allExtensions?: Maybe<BooleanQueryOperatorInput>;
+  isTSX?: Maybe<BooleanQueryOperatorInput>;
+  jsxPragma?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPrettierFilterInput = {
@@ -2639,6 +2637,10 @@ export type SitePluginPluginOptionsCodegenConfigFilterInput = {
 
 export type SitePluginPluginOptionsCodegenConfigHooksFilterInput = {
   afterAllFileWrite?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPluginConfigFilterInput = {
+  head?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginPackageJsonFilterInput = {
@@ -2886,27 +2888,20 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___namespace'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
+  | 'pluginCreator___pluginOptions___codegen'
+  | 'pluginCreator___pluginOptions___documentPaths'
   | 'pluginCreator___pluginOptions___base64Width'
   | 'pluginCreator___pluginOptions___stripMetadata'
   | 'pluginCreator___pluginOptions___defaultQuality'
   | 'pluginCreator___pluginOptions___failOnError'
-  | 'pluginCreator___pluginOptions___trackingId'
-  | 'pluginCreator___pluginOptions___head'
-  | 'pluginCreator___pluginOptions___anonymize'
-  | 'pluginCreator___pluginOptions___respectDNT'
-  | 'pluginCreator___pluginOptions___pageTransitionDelay'
+  | 'pluginCreator___pluginOptions___trackingIds'
+  | 'pluginCreator___pluginOptions___pluginConfig___head'
   | 'pluginCreator___pluginOptions___output'
   | 'pluginCreator___pluginOptions___createLinkInHead'
   | 'pluginCreator___pluginOptions___entryLimit'
   | 'pluginCreator___pluginOptions___query'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
-  | 'pluginCreator___pluginOptions___projectRoot'
-  | 'pluginCreator___pluginOptions___configDir'
-  | 'pluginCreator___pluginOptions___pathCheck'
-  | 'pluginCreator___pluginOptions___allExtensions'
-  | 'pluginCreator___pluginOptions___isTSX'
-  | 'pluginCreator___pluginOptions___jsxPragma'
   | 'pluginCreator___pluginOptions___icon'
   | 'pluginCreator___pluginOptions___short_name'
   | 'pluginCreator___pluginOptions___start_url'
@@ -2919,8 +2914,12 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___crossOrigin'
   | 'pluginCreator___pluginOptions___include_favicon'
   | 'pluginCreator___pluginOptions___cacheDigest'
-  | 'pluginCreator___pluginOptions___codegen'
-  | 'pluginCreator___pluginOptions___documentPaths'
+  | 'pluginCreator___pluginOptions___projectRoot'
+  | 'pluginCreator___pluginOptions___configDir'
+  | 'pluginCreator___pluginOptions___pathCheck'
+  | 'pluginCreator___pluginOptions___allExtensions'
+  | 'pluginCreator___pluginOptions___isTSX'
+  | 'pluginCreator___pluginOptions___jsxPragma'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
   | 'pluginCreator___ssrAPIs'
@@ -3454,27 +3453,21 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___namespace'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
+  | 'pluginOptions___codegen'
+  | 'pluginOptions___documentPaths'
+  | 'pluginOptions___codegenConfig___hooks___afterAllFileWrite'
   | 'pluginOptions___base64Width'
   | 'pluginOptions___stripMetadata'
   | 'pluginOptions___defaultQuality'
   | 'pluginOptions___failOnError'
-  | 'pluginOptions___trackingId'
-  | 'pluginOptions___head'
-  | 'pluginOptions___anonymize'
-  | 'pluginOptions___respectDNT'
-  | 'pluginOptions___pageTransitionDelay'
+  | 'pluginOptions___trackingIds'
+  | 'pluginOptions___pluginConfig___head'
   | 'pluginOptions___output'
   | 'pluginOptions___createLinkInHead'
   | 'pluginOptions___entryLimit'
   | 'pluginOptions___query'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
-  | 'pluginOptions___projectRoot'
-  | 'pluginOptions___configDir'
-  | 'pluginOptions___pathCheck'
-  | 'pluginOptions___allExtensions'
-  | 'pluginOptions___isTSX'
-  | 'pluginOptions___jsxPragma'
   | 'pluginOptions___icon'
   | 'pluginOptions___short_name'
   | 'pluginOptions___start_url'
@@ -3487,9 +3480,12 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___crossOrigin'
   | 'pluginOptions___include_favicon'
   | 'pluginOptions___cacheDigest'
-  | 'pluginOptions___codegen'
-  | 'pluginOptions___documentPaths'
-  | 'pluginOptions___codegenConfig___hooks___afterAllFileWrite'
+  | 'pluginOptions___projectRoot'
+  | 'pluginOptions___configDir'
+  | 'pluginOptions___pathCheck'
+  | 'pluginOptions___allExtensions'
+  | 'pluginOptions___isTSX'
+  | 'pluginOptions___jsxPragma'
   | 'nodeAPIs'
   | 'browserAPIs'
   | 'ssrAPIs'

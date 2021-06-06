@@ -85,7 +85,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
               width: 1150
               transformOptions: { fit: FILL }
               placeholder: BLURRED
-              layout: FIXED
+              layout: CONSTRAINED
               formats: [AUTO, WEBP, AVIF]
             )
           }
