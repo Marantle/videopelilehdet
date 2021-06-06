@@ -5,6 +5,8 @@ import Layout from '../components/layout/layout'
 import { buildPath, capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { PageFile } from '../../.gatsby/gatsby-node'
 
 // const Row = styled.div``
 const Wrapper = styled.div`
@@ -28,27 +30,28 @@ const Item = styled.div`
 
 // const StyledImg = styled.img``
 export interface Props {
-  srcs: string[]
+  images: PageFile[]
   magazine: string
   year: string
   issue: string
 }
 
 export default function MagazineIssue(data: PageProps<{}, Props>) {
-  const { srcs, magazine, year, issue } = data.pageContext
+  const { images: images, magazine, year, issue } = data.pageContext
   const title = `${capitalize(magazine)} ${issue}/${year}`
   return (
     <Layout title={title} path={data.path}>
       <>
-        <Nav
-          navs={buildNavObject(magazine, year, issue)}
-        ></Nav>
+        <Nav navs={buildNavObject(magazine, year, issue)}></Nav>
 
         <Wrapper>
-          {srcs.map((src, i) => (
-            <Item key={src}>
+          {images.map((image, i) => (
+            <Item key={`page${i}`}>
               <Link to={buildPath(magazine, year, issue, `${i + 1}`)}>
-                <img src={src} />
+                <GatsbyImage
+                  image={getImage(image.small.gatsbyImageData)}
+                  alt={`${magazine} ${year} ${issue}`}
+                />
               </Link>
             </Item>
           ))}

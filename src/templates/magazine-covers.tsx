@@ -5,6 +5,7 @@ import Layout from '../components/layout/layout'
 import { buildPath, capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { PageFile } from '../../.gatsby/gatsby-node'
 
 // const Row = styled.div``
@@ -25,20 +26,18 @@ export interface Props {
     issue: string
     page: {
       pageNumber: string
-      file: PageFile
+      image: PageFile
     }
   }[]
 }
 
 export default function MagazineIssue(data: PageProps<{}, Props>) {
-  const { coverPages, magazineName, yearNumber} = data.pageContext
+  const { coverPages, magazineName, yearNumber } = data.pageContext
   const title = `${capitalize(magazineName)} ${yearNumber}`
   return (
     <Layout title={title} path={data.path}>
       <>
-        <Nav
-          navs={buildNavObject(magazineName, yearNumber)}
-        ></Nav>
+        <Nav navs={buildNavObject(magazineName, yearNumber)}></Nav>
 
         <section>
           <Wrapper>
@@ -51,7 +50,10 @@ export default function MagazineIssue(data: PageProps<{}, Props>) {
                     coverPage.issue
                   )}
                 >
-                  <img src={coverPage.page.file.childImageSharp.small.src} />
+                  <GatsbyImage
+                    image={getImage(coverPage.page.image.small.gatsbyImageData)}
+                    alt={`${magazineName} ${yearNumber} ${coverPage.issue}`}
+                  />
                 </Link>
               </div>
             ))}

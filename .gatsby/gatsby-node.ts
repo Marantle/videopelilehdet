@@ -6,8 +6,33 @@ import { Props as MagazineIssueProps } from '../src/templates/magazine-issue'
 import { Props as MagazineCoverProps } from '../src/templates/magazine-covers'
 import { Props as IndexProps } from '../src/templates/index'
 import { createFilePath } from 'gatsby-source-filesystem'
+import { ImageDataLike } from 'gatsby-plugin-image'
 
 export type PageFile = AllMagazinePagesQuery['allFile']['nodes'][0]
+
+interface MagazineObject {
+  magazineName: string
+  years: {
+    yearNumber: string
+    issues: {
+      issueNumber: string
+      pageCount: number
+      pages: {
+        pageNumber: string
+        image: PageFile
+      }[]
+    }[]
+  }[]
+}
+interface MagazineData {
+  magazine: string
+  year: string
+  issue: string
+  page: {
+    pageNumber: string
+    image: PageFile
+  }
+}
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
@@ -43,14 +68,25 @@ export const createPages: GatsbyNode['createPages'] = async ({
         nodes {
           name
           relativeDirectory
-          childImageSharp {
-            small: resize(height: 350, width: 248, fit: FILL) {
-              src
-            }
-
-            large: resize(height: 1315, width: 930, fit: FILL) {
-              src
-            }
+          large: childImageSharp {
+            gatsbyImageData(
+              height: 1485
+              width: 1150
+              transformOptions: { fit: FILL }
+              placeholder: BLURRED
+              layout: FIXED
+              formats: [AUTO, WEBP, AVIF]
+            )
+          }
+          small: childImageSharp {
+            gatsbyImageData(
+              height: 297
+              width: 230
+              transformOptions: { fit: FILL }
+              placeholder: BLURRED
+              layout: FIXED
+              formats: [AUTO, WEBP, AVIF]
+            )
           }
         }
       }
@@ -61,7 +97,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
       allFile: { nodes: files },
     },
   } = result
-  const allPages = files.map((file) => extractMagData(file))
+  const allPages: MagazineData[] = files.map((file) => extractMagData(file))
 
   const coverPages = allPages.filter((page) => page.page.pageNumber === '1')
   const magObjects = buildMagObjects(allPages)
@@ -70,7 +106,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     path: '/',
     component: path.resolve('./src/templates/index.tsx'),
     context: {
-      coverPages,
+      coverPages: coverPages,
     },
   })
   magObjects.forEach((magazine) => {
@@ -109,13 +145,13 @@ export const createPages: GatsbyNode['createPages'] = async ({
           path: issuePath,
           component: path.resolve('./src/templates/magazine-issue.tsx'),
           context: {
-            srcs: pages.map((page) => page.file.childImageSharp.small.src),
+            images: pages.map((page) => page.image),
             magazine: magazine.magazineName,
             year: year.yearNumber,
             issue: issue.issueNumber,
           },
         })
-        pages.forEach((page) => {
+        pages.forEach((page, i, ar) => {
           const { pageNumber } = page
           const pagePath = `${magazineName}/${yearNumber}/${issueNumber}/${pageNumber}/`
           console.log('creating page', { pagePath })
@@ -125,7 +161,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
             context: {
               // Data passed to context is available
               // in page queries as GraphQL variables.
-              src: page.file.childImageSharp.large.src,
+              image: page?.image,
               magazineName: magazine.magazineName,
               year: year.yearNumber,
               issueNumber: issue.issueNumber,
@@ -143,23 +179,17 @@ const extractMagData = (file: PageFile) => {
   const regex = /^(\w+)\/(\d+)\/(\d+)$/gm
   const match = regex.exec(file.relativeDirectory)
   const [, magazine, year, issue] = match
-  return { magazine, year, issue, page: { pageNumber: file.name, file } }
+  return {
+    magazine,
+    year,
+    issue,
+    page: {
+      pageNumber: file.name,
+      image: file,
+    },
+  }
 }
 
-interface MagazineObject {
-  magazineName: string
-  years: {
-    yearNumber: string
-    issues: {
-      issueNumber: string
-      pageCount: number
-      pages: {
-        pageNumber: string
-        file: PageFile
-      }[]
-    }[]
-  }[]
-}
 const buildMagObjects = (magazines: ReturnType<typeof extractMagData>[]) => {
   const magNames = [
     ...magazines.reduce((set, val) => set.add(val.magazine), new Set<string>()),

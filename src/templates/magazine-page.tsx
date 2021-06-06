@@ -5,9 +5,11 @@ import Layout from '../components/layout/layout'
 import { capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { PageFile } from '../../.gatsby/gatsby-node'
 
 export interface Props {
-  src: string
+  image: PageFile
   magazineName: string
   year: string
   issueNumber: string
@@ -16,6 +18,7 @@ export interface Props {
 }
 
 type InternalProps = PageProps<{}, Props>
+
 const buildUrl = (
   context: InternalProps['pageContext'],
   pageNumber?: string
@@ -29,8 +32,16 @@ const buildUrl = (
 }
 
 export default function MagazinePage({ pageContext, path }: InternalProps) {
-  const { src, pageCount, pageNumber, magazineName, year, issueNumber } =
-    pageContext
+  const {
+    image,
+    pageCount,
+    pageNumber,
+    magazineName,
+    year,
+    issueNumber,
+    // nextPage,
+  } = pageContext
+
   const currentPage = Number(pageNumber)
   const next =
     currentPage < Number(pageCount)
@@ -40,13 +51,22 @@ export default function MagazinePage({ pageContext, path }: InternalProps) {
     magazineName
   )} ${issueNumber}/${year} Sivu ${pageNumber}`
 
+  // useEffect(() => {
+  //   if (nextPage) {
+  //     const image = new Image()
+  //     image.src = nextPage
+  //   }
+  // }, [])
+
   return (
     <Layout title={title} path={path}>
       <>
-        <Nav navs={buildNavObject(magazineName, year, issueNumber, pageNumber)}></Nav>
+        <Nav
+          navs={buildNavObject(magazineName, year, issueNumber, pageNumber)}
+        ></Nav>
         <div>
           <Link to={next}>
-            <img height={'877px'} src={src} />
+            <GatsbyImage image={getImage(image.large.gatsbyImageData)} alt={magazineName} />
           </Link>
         </div>
       </>

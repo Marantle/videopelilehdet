@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { Link, PageProps } from 'gatsby'
-import { PageFile } from '../../.gatsby/gatsby-node'
 import styled from 'styled-components'
 import { buildPath } from '../util/string-util'
 import Layout from '../components/layout/layout'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { PageFile } from '../../.gatsby/gatsby-node'
 
 export interface Props {
   coverPages: {
@@ -12,7 +13,7 @@ export interface Props {
     issue: string
     page: {
       pageNumber: string
-      file: PageFile
+      image: PageFile
     }
   }[]
 }
@@ -51,7 +52,10 @@ const IndexPage = (props: InternalProps) => {
                     coverPage.issue
                   )}
                 >
-                  <img src={coverPage.page.file.childImageSharp.small.src} />
+                  <GatsbyImage
+                    image={getImage(coverPage.page.image.small.gatsbyImageData)}
+                    alt={`${coverPage.magazine}${coverPage.year}${coverPage.issue}`}
+                  />
                 </Link>
               </div>
             ))}

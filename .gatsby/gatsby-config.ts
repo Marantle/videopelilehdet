@@ -40,7 +40,7 @@ const config: GatsbyConfig = {
           './.gatsby/**/*.ts',
           // './src/**/*.{ts,tsx}',
           // './.cache/fragments/*.js',
-          './node_modules/gatsby*/!(node_modules)/**/*.js',
+          './node_modules/gatsby-transformer-sharp/!(node_modules)/**/*.js',
         ],
         codegenConfig: {
           hooks: {
@@ -50,9 +50,9 @@ const config: GatsbyConfig = {
         fileName: 'graphql-types.ts',
       },
     },
-    `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
+    { resolve: `gatsby-plugin-sharp`, options: { formats: [`auto`, `webp`] } },
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
@@ -61,8 +61,6 @@ const config: GatsbyConfig = {
     },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {

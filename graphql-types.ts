@@ -254,6 +254,8 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -310,11 +312,11 @@ export type SitePageContext = {
   coverPages?: Maybe<Array<Maybe<SitePageContextCoverPages>>>;
   magazineName?: Maybe<Scalars['String']>;
   yearNumber?: Maybe<Scalars['Date']>;
-  srcs?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<Maybe<SitePageContextImages>>>;
   magazine?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['Date']>;
   issue?: Maybe<Scalars['String']>;
-  src?: Maybe<Scalars['String']>;
+  image?: Maybe<SitePageContextImage>;
   issueNumber?: Maybe<Scalars['String']>;
   pageCount?: Maybe<Scalars['Int']>;
   pageNumber?: Maybe<Scalars['String']>;
@@ -329,26 +331,226 @@ export type SitePageContextCoverPages = {
 
 export type SitePageContextCoverPagesPage = {
   pageNumber?: Maybe<Scalars['String']>;
-  file?: Maybe<SitePageContextCoverPagesPageFile>;
+  image?: Maybe<SitePageContextCoverPagesPageImage>;
 };
 
-export type SitePageContextCoverPagesPageFile = {
+export type SitePageContextCoverPagesPageImage = {
   name?: Maybe<Scalars['String']>;
   relativeDirectory?: Maybe<Scalars['String']>;
-  childImageSharp?: Maybe<SitePageContextCoverPagesPageFileChildImageSharp>;
+  large?: Maybe<SitePageContextCoverPagesPageImageLarge>;
+  small?: Maybe<SitePageContextCoverPagesPageImageSmall>;
 };
 
-export type SitePageContextCoverPagesPageFileChildImageSharp = {
-  small?: Maybe<SitePageContextCoverPagesPageFileChildImageSharpSmall>;
-  large?: Maybe<SitePageContextCoverPagesPageFileChildImageSharpLarge>;
+export type SitePageContextCoverPagesPageImageLarge = {
+  gatsbyImageData?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageData>;
 };
 
-export type SitePageContextCoverPagesPageFileChildImageSharpSmall = {
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageData = {
+  layout?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataPlaceholder>;
+  images?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImages>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataPlaceholder = {
+  fallback?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImages = {
+  fallback?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesFallback>;
+  sources?: Maybe<Array<Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesSources>>>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesFallback = {
   src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
 };
 
-export type SitePageContextCoverPagesPageFileChildImageSharpLarge = {
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesSources = {
+  srcSet?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextCoverPagesPageImageSmall = {
+  gatsbyImageData?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageData>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageData = {
+  layout?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataPlaceholder>;
+  images?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImages>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataPlaceholder = {
+  fallback?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImages = {
+  fallback?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesFallback>;
+  sources?: Maybe<Array<Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesSources>>>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesFallback = {
   src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesSources = {
+  srcSet?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImages = {
+  name?: Maybe<Scalars['String']>;
+  relativeDirectory?: Maybe<Scalars['String']>;
+  large?: Maybe<SitePageContextImagesLarge>;
+  small?: Maybe<SitePageContextImagesSmall>;
+};
+
+export type SitePageContextImagesLarge = {
+  gatsbyImageData?: Maybe<SitePageContextImagesLargeGatsbyImageData>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageData = {
+  layout?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<SitePageContextImagesLargeGatsbyImageDataPlaceholder>;
+  images?: Maybe<SitePageContextImagesLargeGatsbyImageDataImages>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataPlaceholder = {
+  fallback?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImages = {
+  fallback?: Maybe<SitePageContextImagesLargeGatsbyImageDataImagesFallback>;
+  sources?: Maybe<Array<Maybe<SitePageContextImagesLargeGatsbyImageDataImagesSources>>>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImagesFallback = {
+  src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImagesSources = {
+  srcSet?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImagesSmall = {
+  gatsbyImageData?: Maybe<SitePageContextImagesSmallGatsbyImageData>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageData = {
+  layout?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<SitePageContextImagesSmallGatsbyImageDataPlaceholder>;
+  images?: Maybe<SitePageContextImagesSmallGatsbyImageDataImages>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataPlaceholder = {
+  fallback?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImages = {
+  fallback?: Maybe<SitePageContextImagesSmallGatsbyImageDataImagesFallback>;
+  sources?: Maybe<Array<Maybe<SitePageContextImagesSmallGatsbyImageDataImagesSources>>>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImagesFallback = {
+  src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImagesSources = {
+  srcSet?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImage = {
+  name?: Maybe<Scalars['String']>;
+  relativeDirectory?: Maybe<Scalars['String']>;
+  large?: Maybe<SitePageContextImageLarge>;
+  small?: Maybe<SitePageContextImageSmall>;
+};
+
+export type SitePageContextImageLarge = {
+  gatsbyImageData?: Maybe<SitePageContextImageLargeGatsbyImageData>;
+};
+
+export type SitePageContextImageLargeGatsbyImageData = {
+  layout?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<SitePageContextImageLargeGatsbyImageDataPlaceholder>;
+  images?: Maybe<SitePageContextImageLargeGatsbyImageDataImages>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataPlaceholder = {
+  fallback?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImages = {
+  fallback?: Maybe<SitePageContextImageLargeGatsbyImageDataImagesFallback>;
+  sources?: Maybe<Array<Maybe<SitePageContextImageLargeGatsbyImageDataImagesSources>>>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImagesFallback = {
+  src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImagesSources = {
+  srcSet?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImageSmall = {
+  gatsbyImageData?: Maybe<SitePageContextImageSmallGatsbyImageData>;
+};
+
+export type SitePageContextImageSmallGatsbyImageData = {
+  layout?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<SitePageContextImageSmallGatsbyImageDataPlaceholder>;
+  images?: Maybe<SitePageContextImageSmallGatsbyImageDataImages>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataPlaceholder = {
+  fallback?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImages = {
+  fallback?: Maybe<SitePageContextImageSmallGatsbyImageDataImagesFallback>;
+  sources?: Maybe<Array<Maybe<SitePageContextImageSmallGatsbyImageDataImagesSources>>>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImagesFallback = {
+  src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImagesSources = {
+  srcSet?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
 };
 
 export type ImageFormat =
@@ -649,10 +851,7 @@ export type SitePluginPluginOptions = {
   codegen?: Maybe<Scalars['Boolean']>;
   documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
   codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfig>;
-  base64Width?: Maybe<Scalars['Int']>;
-  stripMetadata?: Maybe<Scalars['Boolean']>;
-  defaultQuality?: Maybe<Scalars['Int']>;
-  failOnError?: Maybe<Scalars['Boolean']>;
+  formats?: Maybe<Array<Maybe<Scalars['String']>>>;
   trackingId?: Maybe<Scalars['String']>;
   head?: Maybe<Scalars['Boolean']>;
   anonymize?: Maybe<Scalars['Boolean']>;
@@ -847,6 +1046,8 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -1776,6 +1977,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -1877,6 +2080,8 @@ export type SiteGroupConnection = {
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2062,11 +2267,11 @@ export type SitePageContextFilterInput = {
   coverPages?: Maybe<SitePageContextCoverPagesFilterListInput>;
   magazineName?: Maybe<StringQueryOperatorInput>;
   yearNumber?: Maybe<DateQueryOperatorInput>;
-  srcs?: Maybe<StringQueryOperatorInput>;
+  images?: Maybe<SitePageContextImagesFilterListInput>;
   magazine?: Maybe<StringQueryOperatorInput>;
   year?: Maybe<DateQueryOperatorInput>;
   issue?: Maybe<StringQueryOperatorInput>;
-  src?: Maybe<StringQueryOperatorInput>;
+  image?: Maybe<SitePageContextImageFilterInput>;
   issueNumber?: Maybe<StringQueryOperatorInput>;
   pageCount?: Maybe<IntQueryOperatorInput>;
   pageNumber?: Maybe<StringQueryOperatorInput>;
@@ -2085,26 +2290,254 @@ export type SitePageContextCoverPagesFilterInput = {
 
 export type SitePageContextCoverPagesPageFilterInput = {
   pageNumber?: Maybe<StringQueryOperatorInput>;
-  file?: Maybe<SitePageContextCoverPagesPageFileFilterInput>;
+  image?: Maybe<SitePageContextCoverPagesPageImageFilterInput>;
 };
 
-export type SitePageContextCoverPagesPageFileFilterInput = {
+export type SitePageContextCoverPagesPageImageFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   relativeDirectory?: Maybe<StringQueryOperatorInput>;
-  childImageSharp?: Maybe<SitePageContextCoverPagesPageFileChildImageSharpFilterInput>;
+  large?: Maybe<SitePageContextCoverPagesPageImageLargeFilterInput>;
+  small?: Maybe<SitePageContextCoverPagesPageImageSmallFilterInput>;
 };
 
-export type SitePageContextCoverPagesPageFileChildImageSharpFilterInput = {
-  small?: Maybe<SitePageContextCoverPagesPageFileChildImageSharpSmallFilterInput>;
-  large?: Maybe<SitePageContextCoverPagesPageFileChildImageSharpLargeFilterInput>;
+export type SitePageContextCoverPagesPageImageLargeFilterInput = {
+  gatsbyImageData?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataFilterInput>;
 };
 
-export type SitePageContextCoverPagesPageFileChildImageSharpSmallFilterInput = {
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataFilterInput = {
+  layout?: Maybe<StringQueryOperatorInput>;
+  placeholder?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataPlaceholderFilterInput>;
+  images?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesFilterInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataPlaceholderFilterInput = {
+  fallback?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesFilterInput = {
+  fallback?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesFallbackFilterInput>;
+  sources?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesSourcesFilterListInput>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesFallbackFilterInput = {
   src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePageContextCoverPagesPageFileChildImageSharpLargeFilterInput = {
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesSourcesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesSourcesFilterInput>;
+};
+
+export type SitePageContextCoverPagesPageImageLargeGatsbyImageDataImagesSourcesFilterInput = {
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallFilterInput = {
+  gatsbyImageData?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataFilterInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataFilterInput = {
+  layout?: Maybe<StringQueryOperatorInput>;
+  placeholder?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataPlaceholderFilterInput>;
+  images?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesFilterInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataPlaceholderFilterInput = {
+  fallback?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesFilterInput = {
+  fallback?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesFallbackFilterInput>;
+  sources?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesSourcesFilterListInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesFallbackFilterInput = {
   src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesSourcesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesSourcesFilterInput>;
+};
+
+export type SitePageContextCoverPagesPageImageSmallGatsbyImageDataImagesSourcesFilterInput = {
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImagesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextImagesFilterInput>;
+};
+
+export type SitePageContextImagesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  relativeDirectory?: Maybe<StringQueryOperatorInput>;
+  large?: Maybe<SitePageContextImagesLargeFilterInput>;
+  small?: Maybe<SitePageContextImagesSmallFilterInput>;
+};
+
+export type SitePageContextImagesLargeFilterInput = {
+  gatsbyImageData?: Maybe<SitePageContextImagesLargeGatsbyImageDataFilterInput>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataFilterInput = {
+  layout?: Maybe<StringQueryOperatorInput>;
+  placeholder?: Maybe<SitePageContextImagesLargeGatsbyImageDataPlaceholderFilterInput>;
+  images?: Maybe<SitePageContextImagesLargeGatsbyImageDataImagesFilterInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataPlaceholderFilterInput = {
+  fallback?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImagesFilterInput = {
+  fallback?: Maybe<SitePageContextImagesLargeGatsbyImageDataImagesFallbackFilterInput>;
+  sources?: Maybe<SitePageContextImagesLargeGatsbyImageDataImagesSourcesFilterListInput>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImagesFallbackFilterInput = {
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImagesSourcesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextImagesLargeGatsbyImageDataImagesSourcesFilterInput>;
+};
+
+export type SitePageContextImagesLargeGatsbyImageDataImagesSourcesFilterInput = {
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImagesSmallFilterInput = {
+  gatsbyImageData?: Maybe<SitePageContextImagesSmallGatsbyImageDataFilterInput>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataFilterInput = {
+  layout?: Maybe<StringQueryOperatorInput>;
+  placeholder?: Maybe<SitePageContextImagesSmallGatsbyImageDataPlaceholderFilterInput>;
+  images?: Maybe<SitePageContextImagesSmallGatsbyImageDataImagesFilterInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataPlaceholderFilterInput = {
+  fallback?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImagesFilterInput = {
+  fallback?: Maybe<SitePageContextImagesSmallGatsbyImageDataImagesFallbackFilterInput>;
+  sources?: Maybe<SitePageContextImagesSmallGatsbyImageDataImagesSourcesFilterListInput>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImagesFallbackFilterInput = {
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImagesSourcesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextImagesSmallGatsbyImageDataImagesSourcesFilterInput>;
+};
+
+export type SitePageContextImagesSmallGatsbyImageDataImagesSourcesFilterInput = {
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImageFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  relativeDirectory?: Maybe<StringQueryOperatorInput>;
+  large?: Maybe<SitePageContextImageLargeFilterInput>;
+  small?: Maybe<SitePageContextImageSmallFilterInput>;
+};
+
+export type SitePageContextImageLargeFilterInput = {
+  gatsbyImageData?: Maybe<SitePageContextImageLargeGatsbyImageDataFilterInput>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataFilterInput = {
+  layout?: Maybe<StringQueryOperatorInput>;
+  placeholder?: Maybe<SitePageContextImageLargeGatsbyImageDataPlaceholderFilterInput>;
+  images?: Maybe<SitePageContextImageLargeGatsbyImageDataImagesFilterInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataPlaceholderFilterInput = {
+  fallback?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImagesFilterInput = {
+  fallback?: Maybe<SitePageContextImageLargeGatsbyImageDataImagesFallbackFilterInput>;
+  sources?: Maybe<SitePageContextImageLargeGatsbyImageDataImagesSourcesFilterListInput>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImagesFallbackFilterInput = {
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImagesSourcesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextImageLargeGatsbyImageDataImagesSourcesFilterInput>;
+};
+
+export type SitePageContextImageLargeGatsbyImageDataImagesSourcesFilterInput = {
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImageSmallFilterInput = {
+  gatsbyImageData?: Maybe<SitePageContextImageSmallGatsbyImageDataFilterInput>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataFilterInput = {
+  layout?: Maybe<StringQueryOperatorInput>;
+  placeholder?: Maybe<SitePageContextImageSmallGatsbyImageDataPlaceholderFilterInput>;
+  images?: Maybe<SitePageContextImageSmallGatsbyImageDataImagesFilterInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataPlaceholderFilterInput = {
+  fallback?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImagesFilterInput = {
+  fallback?: Maybe<SitePageContextImageSmallGatsbyImageDataImagesFallbackFilterInput>;
+  sources?: Maybe<SitePageContextImageSmallGatsbyImageDataImagesSourcesFilterListInput>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImagesFallbackFilterInput = {
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImagesSourcesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextImageSmallGatsbyImageDataImagesSourcesFilterInput>;
+};
+
+export type SitePageContextImageSmallGatsbyImageDataImagesSourcesFilterInput = {
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginFilterInput = {
@@ -2134,10 +2567,7 @@ export type SitePluginPluginOptionsFilterInput = {
   codegen?: Maybe<BooleanQueryOperatorInput>;
   documentPaths?: Maybe<StringQueryOperatorInput>;
   codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfigFilterInput>;
-  base64Width?: Maybe<IntQueryOperatorInput>;
-  stripMetadata?: Maybe<BooleanQueryOperatorInput>;
-  defaultQuality?: Maybe<IntQueryOperatorInput>;
-  failOnError?: Maybe<BooleanQueryOperatorInput>;
+  formats?: Maybe<StringQueryOperatorInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
   head?: Maybe<BooleanQueryOperatorInput>;
   anonymize?: Maybe<BooleanQueryOperatorInput>;
@@ -2365,11 +2795,14 @@ export type SitePageFieldsEnum =
   | 'context___coverPages___page___pageNumber'
   | 'context___magazineName'
   | 'context___yearNumber'
-  | 'context___srcs'
+  | 'context___images'
+  | 'context___images___name'
+  | 'context___images___relativeDirectory'
   | 'context___magazine'
   | 'context___year'
   | 'context___issue'
-  | 'context___src'
+  | 'context___image___name'
+  | 'context___image___relativeDirectory'
   | 'context___issueNumber'
   | 'context___pageCount'
   | 'context___pageNumber'
@@ -2425,10 +2858,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___pure'
   | 'pluginCreator___pluginOptions___codegen'
   | 'pluginCreator___pluginOptions___documentPaths'
-  | 'pluginCreator___pluginOptions___base64Width'
-  | 'pluginCreator___pluginOptions___stripMetadata'
-  | 'pluginCreator___pluginOptions___defaultQuality'
-  | 'pluginCreator___pluginOptions___failOnError'
+  | 'pluginCreator___pluginOptions___formats'
   | 'pluginCreator___pluginOptions___trackingId'
   | 'pluginCreator___pluginOptions___head'
   | 'pluginCreator___pluginOptions___anonymize'
@@ -2982,10 +3412,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___codegen'
   | 'pluginOptions___documentPaths'
   | 'pluginOptions___codegenConfig___hooks___afterAllFileWrite'
-  | 'pluginOptions___base64Width'
-  | 'pluginOptions___stripMetadata'
-  | 'pluginOptions___defaultQuality'
-  | 'pluginOptions___failOnError'
+  | 'pluginOptions___formats'
   | 'pluginOptions___trackingId'
   | 'pluginOptions___head'
   | 'pluginOptions___anonymize'
@@ -3042,5 +3469,31 @@ export type AllMagazinePagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AllMagazinePagesQuery = { allFile: { nodes: Array<(
       Pick<File, 'name' | 'relativeDirectory'>
-      & { childImageSharp?: Maybe<{ small?: Maybe<Pick<ImageSharpResize, 'src'>>, large?: Maybe<Pick<ImageSharpResize, 'src'>> }> }
+      & { large?: Maybe<Pick<ImageSharp, 'gatsbyImageData'>>, small?: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }
     )> } };
+
+export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
+
+export type GatsbyImageSharpFixed_TracedSvgFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet'>;
+
+export type GatsbyImageSharpFixed_WithWebpFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
+
+export type GatsbyImageSharpFixed_WithWebp_TracedSvgFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
+
+export type GatsbyImageSharpFixed_NoBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet'>;
+
+export type GatsbyImageSharpFixed_WithWebp_NoBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
+
+export type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
+
+export type GatsbyImageSharpFluidLimitPresentationSizeFragment = { maxHeight: ImageSharpFluid['presentationHeight'], maxWidth: ImageSharpFluid['presentationWidth'] };
+
+export type GatsbyImageSharpFluid_TracedSvgFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
+
+export type GatsbyImageSharpFluid_WithWebpFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
+export type GatsbyImageSharpFluid_WithWebp_TracedSvgFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
+export type GatsbyImageSharpFluid_NoBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
+
+export type GatsbyImageSharpFluid_WithWebp_NoBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
