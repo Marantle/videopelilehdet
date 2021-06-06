@@ -1,0 +1,14 @@
+html,
+body {
+  margin: 0;
+  padding: white;
+  background-color: #151515;
+}
+
+body {
+  color: hsla(0, 0%, 0%, 0.8);
+  font-family: 'Arial', 'Verdana', 'Helvetica';
+  font-weight: normal;
+  word-wrap: break-word;
+  font-kerning: normal;
+}
