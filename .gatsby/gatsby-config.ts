@@ -41,6 +41,8 @@ const config: GatsbyConfig = {
           // './src/**/*.{ts,tsx}',
           // './.cache/fragments/*.js',
           './node_modules/gatsby-transformer-sharp/!(node_modules)/**/*.js',
+          './node_modules/gatsby-plugin-image/!(node_modules)/**/*.js',
+          './node_modules/gatsby-plugin-sharp/!(node_modules)/**/*.js',
         ],
         codegenConfig: {
           hooks: {

@@ -1,14 +1,25 @@
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
-import { AllMagazinePagesQuery } from '../graphql-types'
+import {
+  AllMagazinePagesQuery,
+  SitePageContextImagesLarge,
+  SitePageContextImagesSmall,
+} from '../graphql-types'
 import { Props as MagazinePageProps } from '../src/templates/magazine-page'
 import { Props as MagazineIssueProps } from '../src/templates/magazine-issue'
 import { Props as MagazineCoverProps } from '../src/templates/magazine-covers'
 import { Props as IndexProps } from '../src/templates/index'
 import { createFilePath } from 'gatsby-source-filesystem'
-import { ImageDataLike } from 'gatsby-plugin-image'
+import { IGatsbyImageData, ImageDataLike } from 'gatsby-plugin-image'
 
-export type PageFile = AllMagazinePagesQuery['allFile']['nodes'][0]
+export interface PageFile
+  extends Omit<
+    AllMagazinePagesQuery['allFile']['nodes'][0],
+    'large' | 'small'
+  > {
+  large: { gatsbyImageData: IGatsbyImageData }
+  small: { gatsbyImageData: IGatsbyImageData }
+}
 
 interface MagazineObject {
   magazineName: string
@@ -175,7 +186,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   })
 }
 
-const extractMagData = (file: PageFile) => {
+const extractMagData = (file: any): MagazineData => {
   const regex = /^(\w+)\/(\d+)\/(\d+)$/gm
   const match = regex.exec(file.relativeDirectory)
   const [, magazine, year, issue] = match

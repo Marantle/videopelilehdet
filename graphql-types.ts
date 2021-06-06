@@ -848,9 +848,6 @@ export type SitePluginPluginOptions = {
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
-  codegen?: Maybe<Scalars['Boolean']>;
-  documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
-  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfig>;
   base64Width?: Maybe<Scalars['Int']>;
   stripMetadata?: Maybe<Scalars['Boolean']>;
   defaultQuality?: Maybe<Scalars['Int']>;
@@ -884,6 +881,9 @@ export type SitePluginPluginOptions = {
   crossOrigin?: Maybe<Scalars['String']>;
   include_favicon?: Maybe<Scalars['Boolean']>;
   cacheDigest?: Maybe<Scalars['String']>;
+  codegen?: Maybe<Scalars['Boolean']>;
+  documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
+  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfig>;
 };
 
 export type SitePluginPluginOptionsPrettier = {
@@ -2579,9 +2579,6 @@ export type SitePluginPluginOptionsFilterInput = {
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
-  codegen?: Maybe<BooleanQueryOperatorInput>;
-  documentPaths?: Maybe<StringQueryOperatorInput>;
-  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfigFilterInput>;
   base64Width?: Maybe<IntQueryOperatorInput>;
   stripMetadata?: Maybe<BooleanQueryOperatorInput>;
   defaultQuality?: Maybe<IntQueryOperatorInput>;
@@ -2615,6 +2612,9 @@ export type SitePluginPluginOptionsFilterInput = {
   crossOrigin?: Maybe<StringQueryOperatorInput>;
   include_favicon?: Maybe<BooleanQueryOperatorInput>;
   cacheDigest?: Maybe<StringQueryOperatorInput>;
+  codegen?: Maybe<BooleanQueryOperatorInput>;
+  documentPaths?: Maybe<StringQueryOperatorInput>;
+  codegenConfig?: Maybe<SitePluginPluginOptionsCodegenConfigFilterInput>;
 };
 
 export type SitePluginPluginOptionsPrettierFilterInput = {
@@ -2886,8 +2886,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___namespace'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
-  | 'pluginCreator___pluginOptions___codegen'
-  | 'pluginCreator___pluginOptions___documentPaths'
   | 'pluginCreator___pluginOptions___base64Width'
   | 'pluginCreator___pluginOptions___stripMetadata'
   | 'pluginCreator___pluginOptions___defaultQuality'
@@ -2921,6 +2919,8 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___crossOrigin'
   | 'pluginCreator___pluginOptions___include_favicon'
   | 'pluginCreator___pluginOptions___cacheDigest'
+  | 'pluginCreator___pluginOptions___codegen'
+  | 'pluginCreator___pluginOptions___documentPaths'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
   | 'pluginCreator___ssrAPIs'
@@ -3454,9 +3454,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___namespace'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
-  | 'pluginOptions___codegen'
-  | 'pluginOptions___documentPaths'
-  | 'pluginOptions___codegenConfig___hooks___afterAllFileWrite'
   | 'pluginOptions___base64Width'
   | 'pluginOptions___stripMetadata'
   | 'pluginOptions___defaultQuality'
@@ -3490,6 +3487,9 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___crossOrigin'
   | 'pluginOptions___include_favicon'
   | 'pluginOptions___cacheDigest'
+  | 'pluginOptions___codegen'
+  | 'pluginOptions___documentPaths'
+  | 'pluginOptions___codegenConfig___hooks___afterAllFileWrite'
   | 'nodeAPIs'
   | 'browserAPIs'
   | 'ssrAPIs'

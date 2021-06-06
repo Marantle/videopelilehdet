@@ -31,7 +31,11 @@ const buildUrl = (
   return url
 }
 
-export default function MagazinePage({ pageContext, path }: InternalProps) {
+export default function MagazinePage({
+  pageContext,
+  path,
+  location: { pathname },
+}: InternalProps) {
   const {
     image,
     pageCount,
@@ -59,14 +63,22 @@ export default function MagazinePage({ pageContext, path }: InternalProps) {
   // }, [])
 
   return (
-    <Layout title={title} path={path}>
+    <Layout
+      title={title}
+      path={path}
+      ogUrl={pathname}
+      ogImage={image.large.gatsbyImageData.images.fallback.src}
+    >
       <>
         <Nav
           navs={buildNavObject(magazineName, year, issueNumber, pageNumber)}
         ></Nav>
         <div>
           <Link to={next}>
-            <GatsbyImage image={getImage(image.large.gatsbyImageData)} alt={magazineName} />
+            <GatsbyImage
+              image={getImage(image.large.gatsbyImageData)}
+              alt={magazineName}
+            />
           </Link>
         </div>
       </>
