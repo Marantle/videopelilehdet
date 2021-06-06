@@ -11,7 +11,7 @@ const config: GatsbyConfig = {
       options: {
         prettier: {
           patterns: [
-            // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on `eslint --fix`
+            // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on 'eslint --fix'
             '**/*.{css,scss,less}',
             '**/*.{json,json5}',
             '**/*.{graphql}',
@@ -50,9 +50,9 @@ const config: GatsbyConfig = {
         fileName: 'graphql-types.ts',
       },
     },
-    { resolve: `gatsby-plugin-sharp`, options: { formats: [`auto`, `webp`] } },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-image`,
+    { resolve: 'gatsby-plugin-sharp' },
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-image',
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
@@ -65,7 +65,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'magazines',
-        path: `src/images/magazines/`,
+        path: 'src/images/magazines/',
       },
     },
   ],
