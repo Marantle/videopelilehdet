@@ -3,8 +3,8 @@ import { Link, PageProps } from 'gatsby'
 import styled from 'styled-components'
 import { buildPath } from '../util/string-util'
 import Layout from '../components/layout/layout'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { PageFile } from '../../.gatsby/gatsby-node'
+import { GatsbyImage, IGatsbyImageData, getImage, getSrc } from 'gatsby-plugin-image'
+import { ImageNode } from '../../gatsby-node'
 
 export interface Props {
   coverPages: {
@@ -13,7 +13,7 @@ export interface Props {
     issue: string
     page: {
       pageNumber: string
-      image: PageFile
+      image: ImageNode
     }
   }[]
 }
@@ -35,8 +35,8 @@ const IndexPage = (props: InternalProps) => {
       path=""
       title="Videopelilehdet"
       ogUrl={props.location.pathname}
-      ogImage={
-        coverPages[0].page.image.large.gatsbyImageData.images.fallback.src
+      ogImage={getSrc(coverPages[0].page.image.large!)
+        
       }
     >
       <>
@@ -59,8 +59,9 @@ const IndexPage = (props: InternalProps) => {
                     coverPage.issue
                   )}
                 >
+                {/* @ts-ignore*/}
                   <GatsbyImage
-                    image={getImage(coverPage.page.image.small.gatsbyImageData)}
+                    image={getImage(coverPage.page.image.small) as IGatsbyImageData }
                     alt={`${coverPage.magazine}${coverPage.year}${coverPage.issue}`}
                   />
                 </Link>

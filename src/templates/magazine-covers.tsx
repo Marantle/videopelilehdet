@@ -43,7 +43,7 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
       path={props.path}
       ogUrl={pathname}
       ogImage={
-        getSrc(coverPages[0].page.image.small.gatsbyImageData)
+        getSrc(coverPages[0].page.image.small!)
       }
     >
       <>
@@ -52,7 +52,6 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
         <section>
           <Wrapper>
             {coverPages.map((coverPage, i) => {
-              const t = getImage(coverPage.page.image.small.gatsbyImageData) as IGatsbyImageData 
               return (
                 <div key={coverPage.magazine + i}>
                   <Link
@@ -63,8 +62,9 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
                     )}
                     
                   >
+                  {/* @ts-ignore*/}
                     <GatsbyImage
-                      image={t}
+                      image={getImage(coverPage.page.image.small) as IGatsbyImageData }
                       alt={`${magazineName} ${coverPage.year} ${coverPage.issue}`} />
                   </Link>
                 </div>

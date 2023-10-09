@@ -34,6 +34,7 @@ export default function Layout({
         justifyContent: 'center',
       }}
     >
+    {/* @ts-ignore*/}
       <Helmet
         htmlAttributes={{
           lang: 'fi',

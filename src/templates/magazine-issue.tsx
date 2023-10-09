@@ -5,7 +5,7 @@ import Layout from '../components/layout/layout'
 import { buildPath, capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
-import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image'
+import { GatsbyImage, IGatsbyImageData, getImage, getSrc } from 'gatsby-plugin-image'
 import { ImageNode, PageFile } from '../../gatsby-node'
 
 // const Row = styled.div``
@@ -56,8 +56,9 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
           {images.map((image, i) => (
             <Item key={`page${i}`}>
               <Link to={buildPath(magazine, year, issue, image.name)}>
+            {/* @ts-ignore*/}
                 <GatsbyImage
-                  image={getImage(image.small.gatsbyImageData)}
+                  image={getImage(image.small) as IGatsbyImageData }
                   alt={`${magazine} ${year} ${issue}`}
                 />
               </Link>

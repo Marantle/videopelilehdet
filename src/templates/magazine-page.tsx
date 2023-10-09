@@ -5,7 +5,7 @@ import Layout from '../components/layout/layout'
 import { capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
-import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image'
+import { GatsbyImage, IGatsbyImageData, getImage, getSrc } from 'gatsby-plugin-image'
 import { ImageNode, PageFile } from '../../gatsby-node'
 import styled from 'styled-components'
 
@@ -85,10 +85,11 @@ export default function MagazinePage({
         ></Nav>
         <StyledGI>
           <Link to={next}>
-            <GatsbyImage
-              image={getImage(image.large.gatsbyImageData)}
-              alt={magazineName}
-            />
+            {/* @ts-ignore*/}
+              <GatsbyImage
+                image={getImage(image.large) as IGatsbyImageData }
+                alt={magazineName}
+              />
           </Link>
         </StyledGI>
       </>

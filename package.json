@@ -13,9 +13,7 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit",
-    "ggl-types": "graphql-codegen --config codegen.yml",
-    "ggl-types:watch": "graphql-codegen --config codegen.yml -w"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "babel-plugin-styled-components": "2.1.4",
@@ -38,6 +36,7 @@
     "styled-components": "6.0.8"
   },
   "devDependencies": {
+    "@types/react-helmet": "6.1.7",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
