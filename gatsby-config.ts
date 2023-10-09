@@ -51,8 +51,8 @@ const config: GatsbyConfig = {
           const pages = allPages.map((page) => {
             return { ...page, ...allFileMap[page.path] }
           })
-          console.log(JSON.stringify({ allFileMap }, null, 2))
-          console.log(JSON.stringify({ t: pages }, null, 2))
+          // console.log(JSON.stringify({ allFileMap }, null, 2))
+          // console.log(JSON.stringify({ t: pages }, null, 2))
           return pages
         },
         serialize: ({ path, modifiedTime }) => {
