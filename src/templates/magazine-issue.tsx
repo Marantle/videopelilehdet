@@ -5,8 +5,8 @@ import Layout from '../components/layout/layout'
 import { buildPath, capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { PageFile } from '../../.gatsby/gatsby-node'
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image'
+import { ImageNode, PageFile } from '../../gatsby-node'
 
 // const Row = styled.div``
 const Wrapper = styled.div`
@@ -30,14 +30,14 @@ const Item = styled.div`
 
 // const StyledImg = styled.img``
 export interface Props {
-  images: PageFile[]
+  images: ImageNode[]
   magazine: string
   year: string
   issue: string
 }
 
 export default function MagazineIssue(props: PageProps<{}, Props>) {
-  const { images: images, magazine, year, issue } = props.pageContext
+  const { images, magazine, year, issue } = props.pageContext
   const {
     location: { pathname },
   } = props
@@ -47,7 +47,7 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
       title={title}
       path={props.path}
       ogUrl={pathname}
-      ogImage={images[0].small.gatsbyImageData.images.fallback.src}
+      ogImage={images[0].small ? getSrc(images[0].small) : ""}
     >
       <>
         <Nav navs={buildNavObject(magazine, year, issue)}></Nav>
@@ -55,7 +55,7 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
         <Wrapper>
           {images.map((image, i) => (
             <Item key={`page${i}`}>
-              <Link to={buildPath(magazine, year, issue, `${i + 1}`)}>
+              <Link to={buildPath(magazine, year, issue, image.name)}>
                 <GatsbyImage
                   image={getImage(image.small.gatsbyImageData)}
                   alt={`${magazine} ${year} ${issue}`}

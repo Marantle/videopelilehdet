@@ -16,7 +16,7 @@ interface Props {
   path: string | ''
   title: string
   ogUrl: string
-  ogImage: string
+  ogImage?: string
 }
 
 export default function Layout({

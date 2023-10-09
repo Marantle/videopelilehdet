@@ -1,8 +1,9 @@
 {
-  "name": "vpl-v2",
+  "name": "videopelilehdet",
   "version": "1.0.0",
   "private": true,
-  "description": "vpl-v2",
+  "description": "videopelilehdet",
+  "author": "Marko Leppänen",
   "keywords": [
     "gatsby"
   ],

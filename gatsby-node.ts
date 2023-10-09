@@ -12,6 +12,7 @@ export interface PageFile {
   small: { gatsbyImageData: IGatsbyImageData }
 }
 
+export type ImageNode = Queries.AllMagazinePagesQuery['allFile']['nodes'][number]
 interface MagazineObject {
   magazineName: string
   years: {
@@ -21,7 +22,7 @@ interface MagazineObject {
       pageCount: number
       pages: {
         pageNumber: string
-        image: PageFile
+        image: ImageNode
       }[]
     }[]
   }[]
@@ -32,7 +33,7 @@ interface MagazineData {
   issue: string
   page: {
     pageNumber: string
-    image: PageFile
+    image: ImageNode
   }
 }
 
@@ -69,9 +70,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
         relativeDirectory
         large: childImageSharp {
           gatsbyImageData(
-            height: 1485
-            width: 1150
-            transformOptions: {fit: FILL}
+            height: 1400
+            transformOptions: {fit: OUTSIDE }
             placeholder: BLURRED
             layout: CONSTRAINED
             formats: [AUTO, WEBP, AVIF]
@@ -79,9 +79,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
         }
         small: childImageSharp {
           gatsbyImageData(
-            height: 297
-            width: 230
-            transformOptions: {fit: FILL}
+            height: 300
+            transformOptions: {fit: OUTSIDE }
             placeholder: BLURRED
             layout: FIXED
             formats: [AUTO, WEBP, AVIF]
@@ -91,15 +90,15 @@ export const createPages: GatsbyNode['createPages'] = async ({
     }
   }
   `)
-  if (!result.data) return new Error("NO MAGAZINE DATA")
+  if (!result.data) return
   const {
     data: {
       allFile: { nodes: files },
     },
   } = result
-  const allPages: MagazineData[] = files.map((file: any) => extractMagData(file))
+  const allPages = files.map((file) => extractMagData(file))
 
-  const coverPages = allPages.filter((page) => page.page.pageNumber === '1')
+  const coverPages = allPages.filter((page) => page.page.pageNumber === '1' || page.page.pageNumber === '01')
   const magObjects = buildMagObjects(allPages)
 
   createPage<IndexProps>({
@@ -162,6 +161,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
               // Data passed to context is available
               // in page queries as GraphQL variables.
               image: page?.image,
+              nextImage: ar[i+1]?.image,
               magazineName: magazine.magazineName,
               year: year.yearNumber,
               issueNumber: issue.issueNumber,
@@ -175,8 +175,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
   })
 }
 
-const extractMagData = (file: any): MagazineData => {
-  const regex = /^(\w+)\/(\d+)\/(\d+)$/gm
+const extractMagData = (file: ImageNode): MagazineData => {
+  const regex = /^(\w+)\/(\w+)\/(\w+)$/gm
   const match = regex.exec(file.relativeDirectory)
   const [, magazine, year, issue] = match as RegExpExecArray
   return {
@@ -220,9 +220,7 @@ const buildMagObjects = (magazines: ReturnType<typeof extractMagData>[]) => {
             return {
               issueNumber: issue,
               pageCount: magPages.length,
-              pages: [...magPages].sort(
-                (a, b) => Number(a.pageNumber) - Number(b.pageNumber)
-              ),
+              pages: [...magPages].sort(),
             }
           }),
         }

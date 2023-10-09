@@ -5,8 +5,8 @@ import Layout from '../components/layout/layout'
 import { buildPath, capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { PageFile } from '../../.gatsby/gatsby-node'
+import { GatsbyImage, IGatsbyImageData, getImage, getSrc } from 'gatsby-plugin-image'
+import { PageFile } from '../../gatsby-node'
 
 // const Row = styled.div``
 const Wrapper = styled.div`
@@ -26,7 +26,7 @@ export interface Props {
     issue: string
     page: {
       pageNumber: string
-      image: PageFile
+      image: Queries.AllMagazinePagesQuery['allFile']['nodes'][number]
     }
   }[]
 }
@@ -43,7 +43,7 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
       path={props.path}
       ogUrl={pathname}
       ogImage={
-        coverPages[0].page.image.small.gatsbyImageData.images.fallback.src
+        getSrc(coverPages[0].page.image.small.gatsbyImageData)
       }
     >
       <>
@@ -51,22 +51,25 @@ export default function MagazineIssue(props: PageProps<{}, Props>) {
 
         <section>
           <Wrapper>
-            {coverPages.map((coverPage, i) => (
-              <div key={coverPage.magazine + i}>
-                <Link
-                  to={buildPath(
-                    coverPage.magazine,
-                    coverPage.year,
-                    coverPage.issue
-                  )}
-                >
-                  <GatsbyImage
-                    image={getImage(coverPage.page.image.small.gatsbyImageData)}
-                    alt={`${magazineName} ${yearNumber} ${coverPage.issue}`}
-                  />
-                </Link>
-              </div>
-            ))}
+            {coverPages.map((coverPage, i) => {
+              const t = getImage(coverPage.page.image.small.gatsbyImageData) as IGatsbyImageData 
+              return (
+                <div key={coverPage.magazine + i}>
+                  <Link
+                    to={buildPath(
+                      coverPage.magazine,
+                      coverPage.year,
+                      coverPage.issue
+                    )}
+                    
+                  >
+                    <GatsbyImage
+                      image={t}
+                      alt={`${magazineName} ${coverPage.year} ${coverPage.issue}`} />
+                  </Link>
+                </div>
+              )
+            })}
           </Wrapper>
         </section>
       </>

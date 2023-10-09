@@ -5,12 +5,13 @@ import Layout from '../components/layout/layout'
 import { capitalize } from '../util/string-util'
 import Nav from '../components/nav.tsx/nav'
 import { buildNavObject } from '../util/nav-util'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { PageFile } from '../../.gatsby/gatsby-node'
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image'
+import { ImageNode, PageFile } from '../../gatsby-node'
 import styled from 'styled-components'
 
 export interface Props {
-  image: PageFile
+  image: ImageNode
+  nextImage?: ImageNode
   magazineName: string
   year: string
   issueNumber: string
@@ -39,6 +40,7 @@ export default function MagazinePage({
 }: InternalProps) {
   const {
     image,
+    nextImage,
     pageCount,
     pageNumber,
     magazineName,
@@ -47,10 +49,11 @@ export default function MagazinePage({
     // nextPage,
   } = pageContext
 
-  const currentPage = Number(pageNumber)
+  const currentPage = pageNumber
+  const nextPage = nextImage?.name
   const next =
-    currentPage < Number(pageCount)
-      ? buildUrl(pageContext, `${currentPage + 1}`)
+    nextPage
+      ? buildUrl(pageContext, nextPage)
       : buildUrl(pageContext)
   const title = `${capitalize(
     magazineName
@@ -74,7 +77,7 @@ export default function MagazinePage({
       title={title}
       path={path}
       ogUrl={pathname}
-      ogImage={image.large.gatsbyImageData.images.fallback.src}
+      ogImage={image.small ? getSrc(image.small) : ""}
     >
       <>
         <Nav
