@@ -1,22 +1,13 @@
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
-import {
-  AllMagazinePagesQuery,
-  SitePageContextImagesLarge,
-  SitePageContextImagesSmall,
-} from '../graphql-types'
-import { Props as MagazinePageProps } from '../src/templates/magazine-page'
-import { Props as MagazineIssueProps } from '../src/templates/magazine-issue'
-import { Props as MagazineCoverProps } from '../src/templates/magazine-covers'
-import { Props as IndexProps } from '../src/templates/index'
+import { Props as MagazinePageProps } from './src/templates/magazine-page'
+import { Props as MagazineIssueProps } from './src/templates/magazine-issue'
+import { Props as MagazineCoverProps } from './src/templates/magazine-covers'
+import { Props as IndexProps } from './src/templates/index'
 import { createFilePath } from 'gatsby-source-filesystem'
 import { IGatsbyImageData, ImageDataLike } from 'gatsby-plugin-image'
 
-export interface PageFile
-  extends Omit<
-    AllMagazinePagesQuery['allFile']['nodes'][0],
-    'large' | 'small'
-  > {
+export interface PageFile {
   large: { gatsbyImageData: IGatsbyImageData }
   small: { gatsbyImageData: IGatsbyImageData }
 }
@@ -45,24 +36,24 @@ interface MagazineData {
   }
 }
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions
-  // Ensures we are processing only markdown files
-  if (node.internal.type === 'ImageSharp') {
-    const relativeFilePath = createFilePath({
-      node,
-      getNode,
-      basePath: 'data/faqs/',
-    })
+// exports.onCreateNode = ({ node, getNode, actions }) => {
+//   const { createNodeField } = actions
+//   // Ensures we are processing only markdown files
+//   if (node.internal.type === 'ImageSharp') {
+//     const relativeFilePath = createFilePath({
+//       node,
+//       getNode,
+//       basePath: 'data/faqs/',
+//     })
 
-    // Creates new query'able field with name of 'slug'
-    createNodeField({
-      node,
-      name: 'slug',
-      value: `/faqs${relativeFilePath}`,
-    })
-  }
-}
+//     // Creates new query'able field with name of 'slug'
+//     createNodeField({
+//       node,
+//       name: 'slug',
+//       value: `/faqs${relativeFilePath}`,
+//     })
+//   }
+// }
 
 export const createPages: GatsbyNode['createPages'] = async ({
   graphql,
@@ -70,45 +61,43 @@ export const createPages: GatsbyNode['createPages'] = async ({
 }) => {
   const { createPage } = actions
 
-  const result = await graphql<AllMagazinePagesQuery>(`
-    query AllMagazinePages {
-      allFile(
-        sort: { fields: [name] }
-        filter: { sourceInstanceName: { eq: "magazines" } }
-      ) {
-        nodes {
-          name
-          relativeDirectory
-          large: childImageSharp {
-            gatsbyImageData(
-              height: 1485
-              width: 1150
-              transformOptions: { fit: FILL }
-              placeholder: BLURRED
-              layout: CONSTRAINED
-              formats: [AUTO, WEBP, AVIF]
-            )
-          }
-          small: childImageSharp {
-            gatsbyImageData(
-              height: 297
-              width: 230
-              transformOptions: { fit: FILL }
-              placeholder: BLURRED
-              layout: FIXED
-              formats: [AUTO, WEBP, AVIF]
-            )
-          }
+  const result = await graphql<Queries.AllMagazinePagesQuery>(`
+  query AllMagazinePages {
+    allFile(sort: {name: ASC}, filter: {sourceInstanceName: {eq: "magazines"}}) {
+      nodes {
+        name
+        relativeDirectory
+        large: childImageSharp {
+          gatsbyImageData(
+            height: 1485
+            width: 1150
+            transformOptions: {fit: FILL}
+            placeholder: BLURRED
+            layout: CONSTRAINED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        }
+        small: childImageSharp {
+          gatsbyImageData(
+            height: 297
+            width: 230
+            transformOptions: {fit: FILL}
+            placeholder: BLURRED
+            layout: FIXED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
     }
+  }
   `)
+  if (!result.data) return new Error("NO MAGAZINE DATA")
   const {
     data: {
       allFile: { nodes: files },
     },
   } = result
-  const allPages: MagazineData[] = files.map((file) => extractMagData(file))
+  const allPages: MagazineData[] = files.map((file: any) => extractMagData(file))
 
   const coverPages = allPages.filter((page) => page.page.pageNumber === '1')
   const magObjects = buildMagObjects(allPages)
@@ -189,7 +178,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
 const extractMagData = (file: any): MagazineData => {
   const regex = /^(\w+)\/(\d+)\/(\d+)$/gm
   const match = regex.exec(file.relativeDirectory)
-  const [, magazine, year, issue] = match
+  const [, magazine, year, issue] = match as RegExpExecArray
   return {
     magazine,
     year,
