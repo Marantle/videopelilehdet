@@ -1,7 +1,11 @@
 //@ts-nocheck 
 import type { GatsbyConfig } from "gatsby";
+import adapter from "gatsby-adapter-netlify";
 
 const config: GatsbyConfig = {
+  adapter: adapter({
+    excludeDatastoreFromEngineFunction: false,
+  }),
   siteMetadata: {
     title: 'videopelilehdet',
     siteUrl: 'https://videopelilehdet.fi',
