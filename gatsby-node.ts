@@ -74,7 +74,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
             transformOptions: {fit: OUTSIDE }
             placeholder: BLURRED
             layout: CONSTRAINED
-            formats: [AUTO, WEBP, AVIF]
+            formats: [AUTO]
           )
         }
         small: childImageSharp {
@@ -83,7 +83,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
             transformOptions: {fit: OUTSIDE }
             placeholder: BLURRED
             layout: FIXED
-            formats: [AUTO, WEBP, AVIF]
+            formats: [AUTO]
           )
         }
       }

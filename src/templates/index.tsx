@@ -36,7 +36,6 @@ const IndexPage = (props: InternalProps) => {
       title="Videopelilehdet"
       ogUrl={props.location.pathname}
       ogImage={getSrc(coverPages[0].page.image.large!)
-        
       }
     >
       <>
